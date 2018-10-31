@@ -28,3 +28,9 @@
 4. DNS服务器收到大量应答包
 ![](DNS收到应答包.JPG)
 ### 发现此时DNS记录中目的ip已经发生了变化，说明攻击成功
+
+
+- 具体步骤
+1. DNS配置：<br/>sudo rndc flush<br/>sudo rndc dumpdb -cache<br/>sudo nano /etc/bind/named.conf.options //关闭dnssec-validation服务<br/>service bind9 restart //重启DNS服务
+2. 客户端配置：<br/>sudo nano /etc/resolv.conf //将nameserver改为DNS的IP<br/>禁用DHCP //wired中IPv4 Setting选项卡中Method更改为:Automatic(DHCP) addresses only,DNS servers改为DNS服务器IP
+3. 攻击者配置<br/>与客户端配置相同<br/>伪造DNS应答包
